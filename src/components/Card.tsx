@@ -1,16 +1,26 @@
-import { useState} from "react"; // type SetStateAction (Option 2)
+import EditableField from "./EditableField";
 
-const Card = () => {
-  const [name, setName] = useState("Ikromjon Sharipov");
-  const [isEditingName, setIsEditingName] = useState(false);
-  const [job, setJob] = useState("Frontend Developer Intern");
-  const [isEditingJob, setIsEditingJob] = useState(false);
-  // Option 2: e: { target: { value: SetStateAction<string> } }
-  const changeName = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setName(e.target.value);
-  const changeJob = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setJob(e.target.value);
+interface CardProps {
+  name: string;
+  job: string;
+  isEditingName: boolean;
+  isEditingJob: boolean;
+  setIsEditingName: (isEditingName: boolean) => void;
+  setIsEditingJob: (isEditingJob: boolean) => void;
+  changeName: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  changeJob: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
+const Card: React.FC<CardProps> = ({
+  name,
+  job,
+  isEditingName,
+  isEditingJob,
+  setIsEditingName,
+  setIsEditingJob,
+  changeName,
+  changeJob,
+}) => {
   return (
     <div className="w-[55%] mx-auto pt-[50px]">
       <div className="bg-[#FBF4FA] py-[78px] px-[73px] rounded-2xl flex items-center justify-between relative">
@@ -24,37 +34,18 @@ const Card = () => {
         </div>
         {/* User data */}
         <div className="w-[50%]">
-          {isEditingName ? (
-            <input
-              className="text-[#111827] text-[32px] font-medium leading-10 mb-[8px] outline-none"
-              placeholder={name == "" ? "Username" : ""}
-              value={name}
-              onChange={changeName}
-              onBlur={() => {
-                // Option 2: !(name == "")
-                if (name.trim() !== "") {
-                  setIsEditingName(false);
-                }
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.currentTarget.blur();
-                }
-              }}
-              autoFocus
-              type="text"
-            />
-          ) : (
-            <h4
-              className={`text-[#111827] text-[32px] font-medium leading-10 mb-[8px] ${
-                name ? "" : "invisible"
-              }`}
-              onClick={() => setIsEditingName(true)}
-            >
-              {name || " "}
-            </h4>
-          )}
-          {/* Job */}
+          {/* Username */}
+
+          <EditableField
+            value={name}
+            isEditingName={isEditingName}
+            placeholder={"Username"}
+            changeName={changeName}
+            onEditName={() => setIsEditingName(true)}
+            onBlur={() => name.trim() && setIsEditingName(false)}
+            className="text-[#111827] text-[32px] font-medium leading-10 mb-[8px]"
+          />
+          {/* Job Title */}
           {isEditingJob ? (
             <input
               className="text-[#D5B0CF] text-[18px] font-medium leading-6 mb-[40px] outline-none"
@@ -79,8 +70,16 @@ const Card = () => {
               {job || " "}
             </p>
           )}
+          {/* Description */}
+
           <p className="text-[#111827] text-[16px] font-normal leading-6 mb-[40px]">
-          Frontend developer intern actively working on real projects to strengthen my React, TypeScript, and UI skills. Currently developing a customizable, responsive <span className="font-bold">profile card</span> application to explore editable components, global state, and UI design using Tailwind CSS. Always interested to learn, build, and grow as a developer through hands-on experience.
+            Frontend developer intern actively working on real projects to
+            strengthen my React, TypeScript, and UI skills. Currently developing
+            a customizable, responsive{" "}
+            <span className="font-bold">profile card</span> application to
+            explore editable components, global state, and UI design using
+            Tailwind CSS. Always interested to learn, build, and grow as a
+            developer through hands-on experience.
           </p>
           {/* Media */}
           <ul className="flex items-center gap-x-[48px] mb-[42px]">

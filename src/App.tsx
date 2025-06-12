@@ -1,9 +1,9 @@
-import Card from "./components/Card";
+import EditableText from "./components/EditableText";
 
 function App() {
   return (
     <>
-      <Card />
+      <EditableText/>
     </>
   );
 }
