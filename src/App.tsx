@@ -1,9 +1,9 @@
-import EditableText from "./hooks/TextEdit";
+import TextEdit from "./hooks/TextEdit";
 
 function App() {
   return (
     <>
-      <EditableText />
+      <TextEdit />
     </>
   );
 }
