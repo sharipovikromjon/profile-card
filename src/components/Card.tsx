@@ -1,4 +1,5 @@
-import EditableField from "./EditableField";
+import EditableJob from "./EditableJob";
+import EditableField from "./EditableName";
 
 interface CardProps {
   name: string;
@@ -25,17 +26,10 @@ const Card: React.FC<CardProps> = ({
     <div className="w-[55%] mx-auto pt-[50px]">
       <div className="bg-[#FBF4FA] py-[78px] px-[73px] rounded-2xl flex items-center justify-between relative">
         {/* User image */}
-        <div>
-          {/* <img
-            className="absolute bottom-0 left-0 w-[350px] h-[520px]"
-            src="/user-img.png"
-            alt="user-img"
-          /> */}
-        </div>
+        <div></div>
         {/* User data */}
         <div className="w-[50%]">
           {/* Username */}
-
           <EditableField
             value={name}
             isEditingName={isEditingName}
@@ -46,30 +40,18 @@ const Card: React.FC<CardProps> = ({
             className="text-[#111827] text-[32px] font-medium leading-10 mb-[8px]"
           />
           {/* Job Title */}
-          {isEditingJob ? (
-            <input
-              className="text-[#D5B0CF] text-[18px] font-medium leading-6 mb-[40px] outline-none"
-              value={job}
-              placeholder={job ? "" : "Job position"}
-              onChange={changeJob}
-              onBlur={() => {
-                if (job.trim() !== "") {
-                  setIsEditingJob(false);
-                }
-              }}
-              type="text"
-              autoFocus
-            />
-          ) : (
-            <p
-              className={`text-[#D5B0CF] text-[18px] font-medium leading-6 mb-[40px] ${
-                job ? "" : "invisible"
-              }`}
-              onClick={() => setIsEditingJob(true)}
-            >
-              {job || " "}
-            </p>
-          )}
+          <EditableJob
+            job={job}
+            isEditingJob={isEditingJob}
+            placeholder={"Job position"}
+            changeJob={changeJob}
+            onEditName={() => setIsEditingJob(true)}
+            onBlur={() => name.trim() && setIsEditingJob(false)}
+            className={
+              "text-[#D5B0CF] text-[18px] font-medium leading-6 mb-[40px]"
+            }
+          />
+
           {/* Description */}
 
           <p className="text-[#111827] text-[16px] font-normal leading-6 mb-[40px]">

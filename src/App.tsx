@@ -1,9 +1,9 @@
-import EditableText from "./components/EditableText";
+import EditableText from "./hooks/TextEdit";
 
 function App() {
   return (
     <>
-      <EditableText/>
+      <EditableText />
     </>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "./Card";
+import Card from "../components/Card";
 import { useState } from "react"; // Option 2: type SetStateAction
 
 function EditableText() {
@@ -25,7 +25,6 @@ function EditableText() {
         changeName={changeName}
         changeJob={changeJob}
       />
-
     </>
   );
 }
